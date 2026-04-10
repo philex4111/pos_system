@@ -10,7 +10,10 @@ import mysql.connector
 import tempfile
 import os
 from datetime import datetime
+import os
+from dotenv import load_dotenv
 
+load_dotenv()
 # Avoid Windows console UnicodeEncodeError when printing emojis
 try:
     if hasattr(sys.stdout, "reconfigure"):
@@ -46,14 +49,14 @@ import pos_engine
 import mpesa_api
 import receipt_engine
 
-# ─────────────────────────────────────────
+
+## ─────────────────────────────────────────
 # 1. CONFIGURATION
 # ─────────────────────────────────────────
-TELEGRAM_TOKEN = "8696352975:AAERx1USzLuQXEu7VB08rQwlM5ZOHL3Uz0s"
-MY_ADMIN_ID    = 8716135502
-OLLAMA_URL     = "http://localhost:11434/api/generate"
-OLLAMA_MODEL   = "llama3.2"
-
+TELEGRAM_TOKEN = os.getenv("TELEGRAM_TOKEN")
+MY_ADMIN_ID    = int(os.getenv("MY_ADMIN_ID"))
+OLLAMA_URL     = os.getenv("OLLAMA_URL")
+OLLAMA_MODEL   = os.getenv("OLLAMA_MODEL")
 # ─────────────────────────────────────────
 # USER MANAGEMENT  (roles: admin | attendant)
 # ─────────────────────────────────────────

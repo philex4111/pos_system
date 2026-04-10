@@ -3,23 +3,30 @@ M-Pesa Callback Server — runs on port 5000
 Ngrok tunnels to this port.
 Dashboard runs separately on port 8080.
 """
+import os
+from dotenv import load_dotenv
+import requests
 import json, traceback
 from flask import Flask, request, jsonify
 import mysql.connector
 import requests as req
 from datetime import datetime
+import pos_engine
+import receipt_engine
+
+load_dotenv()
 
 app = Flask(__name__)
 
 # ─── CONFIG ───────────────────────────────────
-TELEGRAM_TOKEN = "8696352975:AAERx1USzLuQXEu7VB08rQwlM5ZOHL3Uz0s"
-ADMIN_CHAT_ID  = 8716135502
+TELEGRAM_TOKEN  = os.getenv("TELEGRAM_TOKEN")
+ADMIN_CHAT_ID   = int(os.getenv("MY_ADMIN_ID"))
 
 DB_CONFIG = {
-    "host":     "localhost",
-    "user":     "root",
-    "password": "@Lakika2003",
-    "database": "duka_pos"
+    "host":     os.getenv("DB_HOST", "localhost"),
+    "user":     os.getenv("DB_USER", "root"),
+    "password": os.getenv("DB_PASS"),
+    "database": os.getenv("DB_NAME", "duka_pos")
 }
 
 def db():

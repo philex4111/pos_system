@@ -1,24 +1,26 @@
+import os
+from dotenv import load_dotenv
 import requests
 import base64
 from datetime import datetime
 from requests.auth import HTTPBasicAuth
 import pos_engine
 
+load_dotenv()
+
 # ─────────────────────────────────────────
 # 1. DARAJA SANDBOX CREDENTIALS
 # ─────────────────────────────────────────
-CONSUMER_KEY    = "vdGmXrEieuguC0A1pE0XhTpLOdXWhNms8lgQDWvqDX28ANYl".strip()
-CONSUMER_SECRET = "KxP6YjGbI9AvJGKK7sUrAjwsTNjeHXSR5uEFnUbtbLlA1bsDXnl4vnGFEUFZ9zXn".strip()
-SHORTCODE       = "174379"
-PASSKEY         = "bfb279f9aa9bdbcf158e97dd71a467cd2e0c893059b10f78e6b72ada1ed2c919"
-
+CONSUMER_KEY    = os.getenv("MPESA_CONSUMER_KEY").strip()
+CONSUMER_SECRET = os.getenv("MPESA_CONSUMER_SECRET").strip()
+SHORTCODE       = os.getenv("MPESA_SHORTCODE")
+PASSKEY         = os.getenv("MPESA_PASSKEY")
 # ─────────────────────────────────────────
 # 2. NGROK CALLBACK URL
 #    Update this every time Ngrok restarts!
 # ─────────────────────────────────────────
-NGROK_BASE_URL = "https://subconjunctively-brainy-norine.ngrok-free.dev"
+NGROK_BASE_URL = os.getenv("NGROK_BASE_URL")
 CALLBACK_URL   = f"{NGROK_BASE_URL}/mpesa/callback"
-
 # ─────────────────────────────────────────
 # 3. HELPERS
 # ─────────────────────────────────────────

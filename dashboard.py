@@ -4,13 +4,17 @@ Includes: Overview · POS Checkout · Inventory · AI Chat
 Run:  python dashboard.py
 Open: http://localhost:8080   password: duka2024
 """
+import os
+from dotenv import load_dotenv
+import mysql.connector
 import sys
 from flask import Flask, request, session, redirect, jsonify, make_response
 import mysql.connector, json
 from datetime import datetime
 from functools import wraps
 import pos_engine
-import os
+
+load_dotenv()
 
 # Avoid Windows console UnicodeEncodeError when printing emojis
 try:
@@ -36,10 +40,10 @@ def _log_mpesa_requests():
         pass
 
 DB_CONFIG = {
-    "host":     "localhost",
-    "user":     "root",
-    "password": "@Lakika2003",
-    "database": "duka_pos"
+    "host":     os.getenv("DB_HOST", "localhost"),
+    "user":     os.getenv("DB_USER", "root"),
+    "password": os.getenv("DB_PASS"),
+    "database": os.getenv("DB_NAME", "duka_pos")
 }
 
 def db():

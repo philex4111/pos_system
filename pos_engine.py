@@ -1,13 +1,17 @@
+import os
+from dotenv import load_dotenv
 import mysql.connector
+
+load_dotenv()
 
 # ─────────────────────────────────────────
 # 1. DATABASE CONNECTION
 # ─────────────────────────────────────────
 DB_CONFIG = {
-    "host":     "localhost",
-    "user":     "root",
-    "password": "@Lakika2003",
-    "database": "duka_pos"
+    "host":     os.getenv("DB_HOST", "localhost"),
+    "user":     os.getenv("DB_USER", "root"),
+    "password": os.getenv("DB_PASS"),
+    "database": os.getenv("DB_NAME", "duka_pos")
 }
 
 def get_connection():
